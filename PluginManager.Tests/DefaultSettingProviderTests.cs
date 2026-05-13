@@ -40,49 +40,43 @@ namespace PluginManager.Tests
 	public class DefaultSettingProviderTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParam_Null_Throws_ArgumentNullException()
 		{
-			new DefaultSettingProvider(null);
+			Assert.Throws<ArgumentNullException>(() => new DefaultSettingProvider(null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParam_EmptyString_Throws_ArgumentNullException()
 		{
-			new DefaultSettingProvider("");
+			Assert.Throws<ArgumentNullException>(() => new DefaultSettingProvider(""));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void GetSettings_InvalidParamStorage_Null_Throws_ArgumentNullException()
 		{
 			DefaultSettingProvider sut = new("adsf");
-			sut.GetSettings<PluginSetting>(null, "name");
+			Assert.Throws<ArgumentNullException>(() => sut.GetSettings<PluginSetting>(null, "name"));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void GetSettings_InvalidParamStorage_EmptyString_Throws_ArgumentNullException()
 		{
 			DefaultSettingProvider sut = new("adsf");
-			sut.GetSettings<PluginSetting>("", "name");
+            Assert.Throws<ArgumentNullException>(() => sut.GetSettings<PluginSetting>("", "name"));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void GetSettings_InvalidParamSectionName_Null_Throws_ArgumentNullException()
 		{
 			DefaultSettingProvider sut = new("adsf");
-			sut.GetSettings<PluginSetting>("myfile", null);
+            Assert.Throws<ArgumentNullException>(() => sut.GetSettings<PluginSetting>("myfile", null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void GetSettings_InvalidParamSectionName_EmptyString_Throws_ArgumentNullException()
 		{
 			DefaultSettingProvider sut = new("adsf");
-			sut.GetSettings<PluginSetting>("myfile", "");
+            Assert.Throws<ArgumentNullException>(() => sut.GetSettings<PluginSetting>("myfile", ""));
 		}
 
 		[TestMethod]

@@ -39,31 +39,27 @@ namespace PluginManager.Tests
 	public class PluginModuleTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParamAssembly_Null_Throws_ArgumentNullException()
 		{
-			new PluginModule(null, "TestAssembly", new MockIPlugin());
+            Assert.Throws<ArgumentNullException>(() => new PluginModule(null, "TestAssembly", new MockIPlugin()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidModuleAssembly_Null_Throws_ArgumentNullException()
 		{
-			new PluginModule(Assembly.GetExecutingAssembly(), null, new MockIPlugin());
+            Assert.Throws<ArgumentNullException>(() => new PluginModule(Assembly.GetExecutingAssembly(), null, new MockIPlugin()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidModuleAssembly_EmptyString_Throws_ArgumentNullException()
 		{
-			new PluginModule(Assembly.GetExecutingAssembly(), "", new MockIPlugin());
+            Assert.Throws<ArgumentNullException>(() => new PluginModule(Assembly.GetExecutingAssembly(), "", new MockIPlugin()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidPluginService_Null_Throws_ArgumentNullException()
 		{
-			new PluginModule(Assembly.GetExecutingAssembly(), "TestAssembly", null);
+            Assert.Throws<ArgumentNullException>(() => new PluginModule(Assembly.GetExecutingAssembly(), "TestAssembly", null));
 		}
 
 		[TestMethod]

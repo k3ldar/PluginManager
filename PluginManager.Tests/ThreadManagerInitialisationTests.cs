@@ -43,11 +43,10 @@ namespace PluginManager.Tests
 	public class ThreadManagerInitialisationTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Initialise_InvalidParam_Null_Throws_ArgumentNullException()
 		{
 			ThreadManagerInitialisation sut = new();
-			sut.Initialise(null);
+            Assert.Throws<ArgumentNullException>(() => sut.Initialise(null));
 		}
 
 		[TestMethod]

@@ -85,19 +85,17 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParamConfiguration_Null_Throws_ArgumentNullException()
 		{
 			PluginSettings pluginSettings = new();
-			new MockPluginManager(null, pluginSettings);
+            Assert.Throws<ArgumentNullException>(() => new MockPluginManager(null, pluginSettings));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParamPluginSettings_Null_Throws_ArgumentNullException()
 		{
 			PluginManagerConfiguration pluginManagerConfiguration = new();
-			new MockPluginManager(pluginManagerConfiguration, null);
+            Assert.Throws<ArgumentNullException>(() => new MockPluginManager(pluginManagerConfiguration, null));
 		}
 
 		[TestMethod]
@@ -117,7 +115,6 @@ namespace PluginManager.Tests
 
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void SetServiceConfigurator_ServiceConfiguratorNull_Throws_ArgumentNullException()
 		{
 			PluginManagerConfiguration pluginManagerConfiguration = new();
@@ -126,7 +123,7 @@ namespace PluginManager.Tests
 
 			MockPluginManager sut = new(pluginManagerConfiguration, pluginSettings);
 
-			sut.TestSetServiceConfigurator(null);
+            Assert.Throws<ArgumentNullException>(() => sut.TestSetServiceConfigurator(null));
 		}
 
 		[TestMethod]
@@ -155,7 +152,6 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void ConfigurServices_InvalidParamServices_Null_Throws_ArgumentNullException()
 		{
 			PluginManagerConfiguration pluginManagerConfiguration = new();
@@ -164,11 +160,10 @@ namespace PluginManager.Tests
 
 			MockPluginManager sut = new(pluginManagerConfiguration, pluginSettings);
 
-			sut.ConfigureServices(null);
+            Assert.Throws<ArgumentNullException>(() => sut.ConfigureServices(null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void AddAssembly_InvalidParamAssembly_Null_Throws_ArgumentNullException()
 		{
 			PluginManagerConfiguration pluginManagerConfiguration = new();
@@ -177,11 +172,10 @@ namespace PluginManager.Tests
 
 			MockPluginManager sut = new(pluginManagerConfiguration, pluginSettings);
 
-			sut.AddAssembly(null);
+			Assert.Throws<ArgumentNullException>(() => sut.AddAssembly(null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void LoadAssembly_InvalidParamAssemblyName_Null_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
@@ -196,7 +190,7 @@ namespace PluginManager.Tests
 
 			MockPluginManager sut = new(pluginManagerConfiguration, pluginSettings);
 
-			sut.PluginLoad(null, false);
+            Assert.Throws<ArgumentNullException>(() => sut.PluginLoad(null, false));
 		}
 
 		[TestMethod]
@@ -277,13 +271,12 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void CreatePluginManagerCallGetParameterInstances_ThrowsArgumentNullException()
 		{
 			MockLogger testLogger = new();
 			using (MockPluginManager pluginManager = new(testLogger))
 			{
-				pluginManager.GetParameterInstances(null);
+                Assert.Throws<ArgumentNullException>(() => pluginManager.GetParameterInstances(null));
 			}
 		}
 
@@ -339,7 +332,6 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginLoad_InvalidParamAssembly_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
@@ -347,7 +339,7 @@ namespace PluginManager.Tests
 			{
 				Assert.AreEqual(1, pluginManager.PluginsGetLoaded().Count);
 
-				pluginManager.PluginLoad(null, "", false);
+                Assert.Throws<ArgumentNullException>(() => pluginManager.PluginLoad(null, "", false));
 			}
 		}
 
@@ -421,7 +413,6 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginLoad_InvalidPluginName_Null_DoNotCopyLocal_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
@@ -431,12 +422,11 @@ namespace PluginManager.Tests
 
 				_ = Assembly.LoadFrom("PluginManager.dll");
 
-				sut.PluginLoad(null, false);
+                Assert.Throws<ArgumentNullException>(() => sut.PluginLoad(null, false));
 			}
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginLoad_InvalidPluginName_EmptyString_DoNotCopyLocal_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
@@ -444,7 +434,7 @@ namespace PluginManager.Tests
 			{
 				Assert.AreEqual(1, sut.PluginsGetLoaded().Count);
 
-				sut.PluginLoad("", false);
+                Assert.Throws<ArgumentNullException>(() => sut.PluginLoad("", false));
 			}
 		}
 
@@ -699,30 +689,27 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void AddPluginModule_InvalidParamAssemblyName_Null_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
 			MockPluginManager sut = new(testLogger);
-			sut.TestAddPluginModule(null, new TestPluginModule());
+            Assert.Throws<ArgumentNullException>(() => sut.TestAddPluginModule(null, new TestPluginModule()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void AddPluginModule_InvalidParamAssemblyName_EmptyString_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
 			MockPluginManager sut = new(testLogger);
-			sut.TestAddPluginModule("", new TestPluginModule());
+            Assert.Throws<ArgumentNullException>(() => sut.TestAddPluginModule("", new TestPluginModule()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void AddPluginModule_InvalidParamPluginModule_Null_Throws_ArgumentNullException()
 		{
 			MockLogger testLogger = new();
 			MockPluginManager sut = new(testLogger);
-			sut.TestAddPluginModule("test", null);
+            Assert.Throws<ArgumentNullException>(() => sut.TestAddPluginModule("test", null));
 		}
 
 		[TestMethod]

@@ -42,46 +42,42 @@ namespace PluginManager.Tests
 
 		[TestMethod]
 		[TestCategory(TestCategoryName)]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void RegisterStartupThread_InvalidThreadName_Null_Throws_ArgumentNullException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
-				pluginManager.RegisterStartupThread(null, typeof(TestThreadManager));
+                Assert.Throws<ArgumentNullException>(() => pluginManager.RegisterStartupThread(null, typeof(TestThreadManager)));
 			}
 		}
 
 		[TestMethod]
 		[TestCategory(TestCategoryName)]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void RegisterStartupThread_InvalidThreadName_EmptyString_Throws_ArgumentNullException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
-				pluginManager.RegisterStartupThread("", typeof(TestThreadManager));
+                Assert.Throws<ArgumentNullException>(() => pluginManager.RegisterStartupThread("", typeof(TestThreadManager)));
 			}
 		}
 
 		[TestMethod]
 		[TestCategory(TestCategoryName)]
-		[ExpectedException(typeof(ArgumentException))]
 		public void RegisterStartupThread_InvalidType_DoesNotDescendFromThreadManager_Throws_ArgumentException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
-				pluginManager.RegisterStartupThread("My thread", this.GetType());
+                Assert.Throws<ArgumentException>(() => pluginManager.RegisterStartupThread("My thread", this.GetType()));
 			}
 		}
 
 		[TestMethod]
 		[TestCategory(TestCategoryName)]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void RegisterStartupThread_ThreadNameAlreadyExists_Throws_InvalidOperationException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
 				pluginManager.RegisterStartupThread("test", typeof(TestThreadManager));
-				pluginManager.RegisterStartupThread("test", typeof(TestThreadManager));
+				Assert.Throws<InvalidOperationException>(() => pluginManager.RegisterStartupThread("test", typeof(TestThreadManager)));
 			}
 		}
 

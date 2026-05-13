@@ -40,17 +40,15 @@ namespace PluginManager.Tests
 	public class LoadSettingsServiceTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginSetting_Construct_InvalidPluginName_Null_Throws_ArgumentNullException()
 		{
-			new PluginSetting(null);
+            Assert.Throws<ArgumentNullException>(() => new PluginSetting(null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginSetting_Construct_InvalidPluginName_EmptyString_Throws_ArgumentNullException()
 		{
-			new PluginSetting("");
+            Assert.Throws<ArgumentNullException>(() => new PluginSetting(""));
 		}
 
 		[TestMethod]

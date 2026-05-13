@@ -46,13 +46,12 @@ namespace PluginManager.Tests
 		#endregion Private Members
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void PluginServices_AddAssembly_NullPluginManager_Throws_ArgumentNullException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
 				IPluginHelperService pluginServices = pluginManager as IPluginHelperService;
-				pluginServices.AddAssembly(null);
+                Assert.Throws<ArgumentNullException>(() => pluginServices.AddAssembly(null));
 			}
 		}
 

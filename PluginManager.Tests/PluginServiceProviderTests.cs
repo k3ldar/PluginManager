@@ -29,6 +29,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PluginManager.Tests.Mocks;
+using Shared.Classes;
 
 namespace PluginManager.Tests
 {
@@ -38,7 +39,6 @@ namespace PluginManager.Tests
 	public class PluginServiceProviderTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void AddTwoIServiceConfiguration_ThrowsInvalidOperationException()
 		{
 			using (MockPluginManager pluginManager = new())
@@ -49,7 +49,7 @@ namespace PluginManager.Tests
 
 				try
 				{
-					pluginManager.RegisterServiceConfigurator(serviceConfigurator);
+                    Assert.Throws<InvalidOperationException>(() => pluginManager.RegisterServiceConfigurator(serviceConfigurator));
 				}
 				catch (InvalidOperationException ioe)
 				{
@@ -60,38 +60,36 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void AddNullServiceConfiguration_ThrowsArgumentNullException()
 		{
 			using (MockPluginManager pluginManager = new())
 			{
-				pluginManager.RegisterServiceConfigurator(null);
+				Assert.Throws<ArgumentNullException>(() => pluginManager.RegisterServiceConfigurator(null));
 			}
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void ServiceConfigurationIsCalled_AfterServicesHaveBeenConfigured_ThrowsInvalidOperationException()
 		{
-			using (MockPluginManager pluginManager = new())
+			ThreadManager.Initialise();
+			try
 			{
-				MockServiceConfigurator serviceConfigurator = new();
-
-				pluginManager.RegisterServiceConfigurator(serviceConfigurator);
-
-				pluginManager.ConfigureServices();
-
-				Assert.IsTrue(serviceConfigurator.RegisterServicesCalled);
-
-				try
+				using (MockPluginManager pluginManager = new())
 				{
+					MockServiceConfigurator serviceConfigurator = new();
+
 					pluginManager.RegisterServiceConfigurator(serviceConfigurator);
+
+					pluginManager.ConfigureServices();
+
+					Assert.IsTrue(serviceConfigurator.RegisterServicesCalled);
+
+					Assert.Throws<InvalidOperationException>(() => pluginManager.RegisterServiceConfigurator(serviceConfigurator));
 				}
-				catch (InvalidOperationException ioe)
-				{
-					Assert.AreEqual("The plugin manager has already configured its services", ioe.Message);
-					throw;
-				}
+			}
+			finally
+			{
+				ThreadManager.Finalise();
 			}
 		}
 	}

@@ -76,26 +76,23 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParamLogger_Null_Throws_ArgumentNullException()
 		{
 			LoadSettingsService loadSettingsService = new();
 
-			new PluginManagerConfiguration(null, loadSettingsService);
+            Assert.Throws<ArgumentNullException>(() => new PluginManagerConfiguration(null, loadSettingsService));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParamLoadSettingsService_Null_Throws_ArgumentNullException()
 		{
-			new PluginManagerConfiguration(new MockLogger(), null);
+            Assert.Throws<ArgumentNullException>(() => new PluginManagerConfiguration(new MockLogger(), null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidServiceConfigurator_Null_Throws_ArgumentNullException()
 		{
-			new PluginManagerConfiguration(new MockLogger(), new LoadSettingsService(), null);
+            Assert.Throws<ArgumentNullException>(() => new PluginManagerConfiguration(new MockLogger(), new LoadSettingsService(), null));
 		}
 
 		[TestMethod]
@@ -125,7 +122,6 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void ReplaceLogger_InvalidLogger_NullThrows()
 		{
 			MockLogger testLogger = new();
@@ -136,7 +132,7 @@ namespace PluginManager.Tests
 			Assert.IsNotNull(sut.LoadSettingsService);
 			Assert.AreEqual(testLogger, sut.Logger);
 
-			sut.ReplaceLogger(null);
+			Assert.Throws<ArgumentNullException>(() => sut.ReplaceLogger(null));
 		}
 
 		[TestMethod]

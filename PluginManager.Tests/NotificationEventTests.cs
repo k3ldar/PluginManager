@@ -45,14 +45,13 @@ namespace PluginManager.Tests
 	public class NotificationEventTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void InvalidParam1()
 		{
 			INotificationService service = new NotificationService();
 
 			Assert.IsNotNull(service);
 
-			service.RegisterListener(new InvalidEventsListenerNullEvents());
+            Assert.Throws<InvalidOperationException>(() => service.RegisterListener(new InvalidEventsListenerNullEvents()));
 		}
 
 		[TestMethod]
@@ -66,16 +65,15 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void InvalidEventForClass()
 		{
 			INotificationService service = new NotificationService();
 
 			Assert.IsNotNull(service);
 
-			service.RegisterListener(new InvalidEventsListenerNullEvents());
+			Assert.Throws<InvalidOperationException>(() => service.RegisterListener(new InvalidEventsListenerNullEvents()));
 			object result = new();
-			service.RaiseEvent("Test2345", null, null, ref result);
+            service.RaiseEvent("Test2345", null, null, ref result);
 		}
 
 		[TestMethod]
@@ -139,19 +137,17 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void NotificationService_RegisterListener_ArgumentNullException_InvalidParam_Null_Throws_ArgumentNullException()
 		{
 			NotificationService sut = new();
-			sut.RegisterListener(null);
+            Assert.Throws<ArgumentNullException>(() => sut.RegisterListener(null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void NotificationService_UnregisterListener_ArgumentNullException_InvalidParam_Null_Throws_ArgumentNullException()
 		{
 			NotificationService sut = new();
-			sut.UnregisterListener(null);
+            Assert.Throws<ArgumentNullException>(() => sut.UnregisterListener(null));
 		}
 
 		[TestMethod]
@@ -165,27 +161,24 @@ namespace PluginManager.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void NotificationService_RegisterListener_ContainsNullEventName_Throws_InvalidOperationException()
 		{
 			NotificationService sut = new();
-			sut.RegisterListener(new InvalidEventsListenerNullEventName());
+            Assert.Throws<InvalidOperationException>(() => sut.RegisterListener(new InvalidEventsListenerNullEventName()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void NotificationService_UnregisterListener_ContainsNoEventNames_Throws_InvalidOperationException()
 		{
 			NotificationService sut = new();
-			sut.UnregisterListener(new InvalidEventsListenerNoEvents());
+            Assert.Throws<InvalidOperationException>(() => sut.UnregisterListener(new InvalidEventsListenerNoEvents()));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void NotificationService_UnregisterListener_ContainsInvalidEventNames_Null_Throws_InvalidOperationException()
 		{
 			NotificationService sut = new();
-			sut.UnregisterListener(new InvalidEventsListenerNullEvents());
+            Assert.Throws<InvalidOperationException>(() => sut.UnregisterListener(new InvalidEventsListenerNullEvents()));
 		}
 
 		[TestMethod]
@@ -383,17 +376,15 @@ namespace PluginManager.Tests
 		#region Notification Queue Item
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void NotificationQueueItem_Construct_InvalidParamEventId_Null_Throws_ArgumentNullException()
 		{
-			new NotificationQueueItem(null, null, null);
+            Assert.Throws<ArgumentNullException>(() => new NotificationQueueItem(null, null, null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void NotificationQueueItem_Construct_InvalidParamEventId_EmptyString_Throws_ArgumentNullException()
 		{
-			new NotificationQueueItem(null, null, null);
+            Assert.Throws<ArgumentNullException>(() => new NotificationQueueItem(null, null, null));
 		}
 
 		[TestMethod]

@@ -35,17 +35,15 @@ namespace PluginManager.Tests
 	public class LoggerQueueItemTests
 	{
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParam_Message_Null_Throws_ArgumentNullException()
 		{
-			new LoggerQueueItem(LogLevel.Error, null);
+            Assert.Throws<ArgumentNullException>(() => new LoggerQueueItem(LogLevel.Error, null));
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void Construct_InvalidParam_Message_EmptyString_Throws_ArgumentNullException()
 		{
-			new LoggerQueueItem(LogLevel.Error, "");
+            Assert.Throws<ArgumentNullException>(() => new LoggerQueueItem(LogLevel.Error, ""));
 		}
 
 		[TestMethod]

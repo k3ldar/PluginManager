@@ -216,7 +216,6 @@ namespace PluginManager.Tests
 
 		[TestMethod]
 		[TestCategory(TestCategoryDescription)]
-		[ExpectedException(typeof(MissingMethodException))]
 		public void GetServiceInstance_ConstructInstanceWithMissingConstructorClassesRegistered_Throws_MissingMethodException()
 		{
 			MockServiceCollection msc = [];
@@ -226,7 +225,7 @@ namespace PluginManager.Tests
 			Assert.IsNull(msc[0].ImplementationInstance);
 			Assert.IsNotNull(msc[0].ImplementationType);
 
-			_ = ServiceCollectionHelper.GetServiceInstance<TestClassWithConstructorParams>(msc);
+            Assert.Throws<MissingMethodException>(() => ServiceCollectionHelper.GetServiceInstance<TestClassWithConstructorParams>(msc));
 		}
 
 		[TestMethod]
